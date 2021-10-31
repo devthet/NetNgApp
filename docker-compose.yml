@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  db-postgres:
+    image: postgres
+    container_name: postgres1
+    restart: always
+    environment:
+      - POSTGRES_DB=datingappdb
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=<adminPassw0rd>
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/data/db
+  pgadmin:
+    image: adminer
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    ports:
+      - 8080:8080
+    volumes:
+      - pgadmin:/root/.pgadmin
+volumes:
+  postgres-data:
+  pgadmin:
+
