@@ -29,7 +29,10 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+             services.AddCors(options=>{
+                 options.AddPolicy("MyCorsPolicy",builder=>builder.WithOrigins("*"));
+             }
+             );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -38,6 +41,7 @@ namespace API
             services.AddDbContext<DataContext>(options=>{
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             } );
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,10 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("MyCorsPolicy");
+            //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+           // app.UseDefaultFiles();
+           // app.UseStaticFiles();
 
             app.UseAuthorization();
 
