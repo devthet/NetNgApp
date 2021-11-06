@@ -36,11 +36,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices(Configuration);
-             services.AddCors(options=>{
-                 options.AddPolicy("MyCorsPolicy",builder=>builder.WithOrigins("*"));
-             }
-             );
+             
             services.AddControllers();
+            // services.AddCors(options=>{
+            //      options.AddPolicy("MyCorsPolicy",builder=>builder.WithOrigins("*"));
+            //  }
+            //  );
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -59,11 +61,12 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
+            //app.UseCors("MyCorsPolicy");
+            //app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors( x=> x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin=>true).AllowCredentials());
             app.UseHttpsRedirection();
-
             app.UseRouting();
-            app.UseCors("MyCorsPolicy");
+           
             //app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
            // app.UseDefaultFiles();
            // app.UseStaticFiles();

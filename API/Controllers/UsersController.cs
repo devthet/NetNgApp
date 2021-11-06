@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     
-    [EnableCors("MyCorsPolicy")]
+    // [EnableCors("MyCorsPolicy")]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;

@@ -1,0 +1,19 @@
+.dropdown-toggle{
+  cursor: pointer;
+
+}
+.dropdown-item{
+  cursor: pointer;
+
+}
+.btn btn-info dropdown-toggle{
+  cursor: pointer;
+}
+.dropdown-menu{
+  width: 20px;
+}
+/* .dropdown{
+  width: 80px;
+  margin-left: 80px;
+} */
+
